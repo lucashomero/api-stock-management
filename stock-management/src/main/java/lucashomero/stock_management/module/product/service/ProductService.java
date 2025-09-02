@@ -9,7 +9,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import lucashomero.stock_management.exceptions.CategoryNotFoundException;
 import lucashomero.stock_management.exceptions.ProductIdFoundException;
+import lucashomero.stock_management.module.category.entity.CategoryEntity;
+import lucashomero.stock_management.module.category.repository.CategoryRepository;
 import lucashomero.stock_management.module.product.entity.ProductEntity;
 import lucashomero.stock_management.module.product.repository.ProductRepository;
 
@@ -19,21 +22,24 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	public List<ProductEntity> list(){
-		Sort sort = Sort.by(Direction.ASC, "name").and(Sort.by(Direction.ASC, "value_in_cents"));
+		Sort sort = Sort.by(Direction.ASC, "name");
 		return productRepository.findAll(sort);
 	}
 	
-	public List<ProductEntity> create(ProductEntity productEntity){
-		
-		var product = productRepository.findById(productEntity.getId());
-		if (product.isPresent()) {
-			throw new ProductIdFoundException();
-		}
-		
-		productRepository.save(productEntity);
-		return list();
-		
+	public ProductEntity create(ProductEntity productEntity){
+	
+		if(true) {
+			if (productEntity.getId() != null) {
+				throw new ProductIdFoundException();
+			}
+			productEntity = productRepository.save(productEntity);
+		} 
+
+		return productEntity;
 		
 	}
 	
@@ -44,12 +50,8 @@ public class ProductService {
 			productEntity.setId(id);
 			productRepository.save(productEntity);
 		}
-		
 		return list();
-		
 	}
-	
-	
 	
 	public List<ProductEntity> delete(UUID id){
 		var product = productRepository.findById(id);

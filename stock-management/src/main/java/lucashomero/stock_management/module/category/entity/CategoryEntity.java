@@ -1,16 +1,19 @@
 package lucashomero.stock_management.module.category.entity;
 
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lucashomero.stock_management.module.product.entity.ProductEntity;
 
 @Entity(name = "category")
 @Data
@@ -18,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryEntity {
+	
 	
 	@Id @GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;

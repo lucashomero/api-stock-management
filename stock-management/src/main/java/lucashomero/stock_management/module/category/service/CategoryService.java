@@ -34,7 +34,6 @@ public class CategoryService {
 		if (category.isPresent()) {
 			throw new CategoryFoundException();
 		}
-		
 		categoryRepository.save(categoryEntity);
 		return categoryEntity;
 		
