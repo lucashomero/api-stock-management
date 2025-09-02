@@ -45,11 +45,11 @@ public class ProductController {
 		
 	}
 	
-	@PutMapping("{id}")
-	public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody @Valid ProductEntity productEntity){
+	@PutMapping
+	public ResponseEntity<Object> update(@RequestBody @Valid ProductEntity productEntity){
 		
 		try {
-			var updateProduct = productService.update(id, productEntity);
+			var updateProduct = productService.update(productEntity);
 			return ResponseEntity.ok().body(updateProduct);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -68,6 +68,8 @@ public class ProductController {
 		}
 		
 	}
+	
+	
 	
 	
 	

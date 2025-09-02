@@ -38,19 +38,18 @@ public class ProductService {
 			}
 			productEntity = productRepository.save(productEntity);
 		} 
-
 		return productEntity;
 		
 	}
 	
-	public List<ProductEntity> update(UUID id, ProductEntity productEntity){
+	public ProductEntity update(ProductEntity productEntity){
 		
-		var product = productRepository.findById(id);
+		var product = productRepository.findById(productEntity.getId());
 		if (product.isPresent()) {
-			productEntity.setId(id);
 			productRepository.save(productEntity);
 		}
-		return list();
+		return productEntity;
+
 	}
 	
 	public List<ProductEntity> delete(UUID id){
@@ -60,5 +59,7 @@ public class ProductService {
 		}
 		return list();
 	}
+	
+	
 	
 }
